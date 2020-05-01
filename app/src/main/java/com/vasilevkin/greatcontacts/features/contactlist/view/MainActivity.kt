@@ -1,7 +1,9 @@
-package com.vasilevkin.greatcontacts
+package com.vasilevkin.greatcontacts.features.contactlist.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.vasilevkin.greatcontacts.R
+
 
 class MainActivity : AppCompatActivity() {
 
