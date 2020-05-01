@@ -44,6 +44,8 @@ ext {
                     espresso          : "3.2.0"
             ],
             dagger                 : "2.26",
-            dagger_javax_annotation: "1.0"
+            dagger_javax_annotation: "1.0",
+            rxjava                 : "2.2.10",
+            rxandroid              : "2.1.1"
     ]
 }

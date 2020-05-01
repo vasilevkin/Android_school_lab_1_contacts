@@ -43,7 +43,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$versions.components.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.components.lifecycle"
 
-    // Tests
+    // For tests
     testImplementation "junit:junit:$versions.tests.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.tests.androidx_ext_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.tests.espresso"
@@ -52,4 +52,8 @@ dependencies {
     implementation "com.google.dagger:dagger:" + versions.dagger
     kapt "com.google.dagger:dagger-compiler:$versions.dagger"
     compileOnly "javax.annotation:jsr250-api:" + versions.dagger_javax_annotation
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
 }
