@@ -1,13 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.contactdetails.view.ContactDetailsFragment">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/first_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="25dp"
+        android:text="Firstname"
+        app:layout_constraintEnd_toStartOf="@+id/first_name_edit_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/first_name_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Firstname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/first_name_text_view"
+        app:layout_constraintTop_toTopOf="@+id/first_name_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/last_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="25dp"
+        android:text="Lastname"
+        app:layout_constraintEnd_toStartOf="@+id/last_name_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/first_name_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/first_name_text_view" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/last_name_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="0dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Lastname"
+        app:layout_constraintEnd_toEndOf="@+id/first_name_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/first_name_edit_text"
+        app:layout_constraintTop_toTopOf="@+id/last_name_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/phone_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="25dp"
+        android:text="Phone"
+        app:layout_constraintEnd_toStartOf="@+id/phone_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/first_name_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/last_name_text_view" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/phone_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="0dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="(000) 000-00-00"
+        app:layout_constraintEnd_toEndOf="@+id/first_name_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/first_name_edit_text"
+        app:layout_constraintTop_toTopOf="@+id/phone_text_view" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/email_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="25dp"
+        android:text="Email"
+        app:layout_constraintEnd_toStartOf="@+id/email_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/first_name_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/phone_text_view" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/email_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="0dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="email@domain.com"
+        app:layout_constraintEnd_toEndOf="@+id/first_name_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/first_name_edit_text"
+        app:layout_constraintTop_toTopOf="@+id/email_text_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
