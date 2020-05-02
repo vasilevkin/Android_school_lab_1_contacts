@@ -4,8 +4,8 @@ import java.io.Serializable
 
 
 data class Person(
-    private val firstName: String,
-    private val lastName: String,
-    private val phone: String,
-    private val email: String
+    val firstName: String,
+    val lastName: String,
+    val phone: String,
+    val email: String
 ) : Serializable
