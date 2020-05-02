@@ -14,16 +14,67 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.vasilevkin.greatcontacts.R
+import com.vasilevkin.greatcontacts.features.contactdetails.view.ContactDetailsFragment
 import com.vasilevkin.greatcontacts.models.Person
+import com.vasilevkin.greatcontacts.utils.PERMISSION_REQUEST_CODE
+import com.vasilevkin.greatcontacts.utils.TAG_CONTACT_DETAILS_FRAGMENT
+import com.vasilevkin.greatcontacts.utils.TAG_CONTACT_LIST_FRAGMENT
 
-class MainActivity : AppCompatActivity(), ContactListFragment.OnCallContact
-{
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    ContactListFragment.OnCallContact,
+    ContactListFragment.OnContactSelected {
+
+    // Lifecycle methods
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            val stackHeight = supportFragmentManager.backStackEntryCount
+            if (stackHeight > 0) {
+                // if we have something on the stack (doesn't include the current shown fragment)
+                supportActionBar?.setHomeButtonEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            } else {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                supportActionBar?.setHomeButtonEnabled(false)
+            }
+        }
+
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.root_layout, ContactListFragment.newInstance(), TAG_CONTACT_LIST_FRAGMENT)
+                .commit()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                supportFragmentManager.popBackStack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    // interface ContactListFragment.OnContactSelected
+
+    override fun onSelected(contact: Person) {
+        val detailsFragment = ContactDetailsFragment.newInstance(
+        )
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.root_layout, detailsFragment, TAG_CONTACT_DETAILS_FRAGMENT)
+            .addToBackStack(TAG_CONTACT_DETAILS_FRAGMENT)
+            .commit()
+    }
+
     // interface ContactListFragment.OnCallContact
 
     override fun onCallContactClicked(contact: Person) {
@@ -34,8 +85,6 @@ class MainActivity : AppCompatActivity() {
 
     // Private methods
     // Check if permission is granted, request if needed and make a call
-
-    private val PERMISSION_REQUEST_CODE = 200
 
     private fun callPhoneNumber(phone: String) {
         if (checkCallPermission()) {
@@ -105,5 +154,4 @@ class MainActivity : AppCompatActivity() {
             .create()
             .show()
     }
-
 }

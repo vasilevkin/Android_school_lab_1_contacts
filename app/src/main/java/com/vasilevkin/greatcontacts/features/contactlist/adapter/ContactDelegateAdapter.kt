@@ -17,6 +17,8 @@ class ContactDelegateAdapter : KDelegateAdapter<ContactLocalModel>() {
             email_text_view.text = item.contact.email
 
             itemView.setOnClickListener {
+                val activity = item.context as ContactListFragment.OnContactSelected
+                activity.onSelected(item.contact)
             }
 
             call_image_button.setOnClickListener {
