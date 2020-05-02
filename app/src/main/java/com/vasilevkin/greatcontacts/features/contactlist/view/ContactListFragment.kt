@@ -23,6 +23,25 @@ class ContactListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+    private lateinit var listener: OnCallContact
+
+
+    interface OnCallContact {
+        fun onCallContactClicked(contact: Person)
+    }
+
+    // Fragment Lifecycle methods
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnCallContact) {
+            listener = context
+        } else {
+            throw ClassCastException(
+                "$context must implement OnCallContact."
+            )
+        }
+    }
         return inflater.inflate(R.layout.contact_list_fragment, container, false)
     }
 

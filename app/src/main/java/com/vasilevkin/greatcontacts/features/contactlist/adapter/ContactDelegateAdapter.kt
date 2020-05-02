@@ -2,6 +2,7 @@ package com.vasilevkin.greatcontacts.features.contactlist.adapter
 
 import com.vasilevkin.greatcontacts.R
 import com.vasilevkin.greatcontacts.delegateadapter.KDelegateAdapter
+import com.vasilevkin.greatcontacts.features.contactlist.view.ContactListFragment
 import com.vasilevkin.greatcontacts.models.localmodels.ContactLocalModel
 import kotlinx.android.synthetic.main.contact_item.*
 
@@ -19,7 +20,8 @@ class ContactDelegateAdapter : KDelegateAdapter<ContactLocalModel>() {
             }
 
             call_image_button.setOnClickListener {
-
+                val activity = item.context as ContactListFragment.OnCallContact
+                activity.onCallContactClicked(item.contact)
             }
         }
 
