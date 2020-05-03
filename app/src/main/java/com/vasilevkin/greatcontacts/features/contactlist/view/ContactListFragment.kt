@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +17,7 @@ import com.vasilevkin.greatcontacts.features.contactlist.adapter.ContactDelegate
 import com.vasilevkin.greatcontacts.features.contactlist.viewmodel.ContactListViewModel
 import com.vasilevkin.greatcontacts.models.Person
 import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
 
 class ContactListFragment : Fragment() {
@@ -27,7 +27,8 @@ class ContactListFragment : Fragment() {
             ContactListFragment()
     }
 
-    private lateinit var viewModel: ContactListViewModel
+    @Inject
+    lateinit var viewModel: ContactListViewModel
 
     private var contacts: List<IComparableItem> = emptyList()
     private lateinit var diffAdapter: DiffUtilCompositeAdapter
@@ -49,6 +50,8 @@ class ContactListFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        (requireActivity() as MainActivity).appComponent.inject(this)
 
         if (context is OnContactSelected) {
             contactListener = context
@@ -80,8 +83,6 @@ class ContactListFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = "Contacts"
 
-        viewModel = ViewModelProviders.of(this).get(ContactListViewModel::class.java)
-
         viewModel.view = activity as Context
     }
 
@@ -106,7 +107,7 @@ class ContactListFragment : Fragment() {
                 )
             )
         }
-        
+
         this.disposable = viewModel.contactList.subscribe {
             displayContacts(it)
         }

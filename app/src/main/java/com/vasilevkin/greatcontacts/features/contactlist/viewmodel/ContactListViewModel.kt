@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import com.vasilevkin.greatcontacts.delegateadapter.diff.IComparableItem
 import com.vasilevkin.greatcontacts.models.Person
 import com.vasilevkin.greatcontacts.models.localmodels.ContactLocalModel
+import com.vasilevkin.greatcontacts.repository.IContactRepository
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
+import javax.inject.Inject
 
 
 class ContactListViewModel
+@Inject constructor(private val contactRepository: IContactRepository)
     : ViewModel() {
 
     private var disposable: Disposable? = null

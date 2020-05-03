@@ -13,7 +13,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.vasilevkin.greatcontacts.MainApplication
 import com.vasilevkin.greatcontacts.R
+import com.vasilevkin.greatcontacts.di.AppComponent
 import com.vasilevkin.greatcontacts.features.contactdetails.view.ContactDetailsFragment
 import com.vasilevkin.greatcontacts.models.Person
 import com.vasilevkin.greatcontacts.utils.PERMISSION_REQUEST_CODE
@@ -25,9 +27,13 @@ class MainActivity : AppCompatActivity(),
     ContactListFragment.OnCallContact,
     ContactListFragment.OnContactSelected {
 
+    lateinit var appComponent: AppComponent
+
     // Lifecycle methods
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        appComponent = (application as MainApplication).appComponent
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
