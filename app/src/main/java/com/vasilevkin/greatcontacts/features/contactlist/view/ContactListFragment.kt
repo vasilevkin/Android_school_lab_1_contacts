@@ -38,10 +38,10 @@ class ContactListFragment : Fragment(), Filterable {
     @Inject
     lateinit var viewModel: ContactListViewModel
 
-    private var contacts: List<IComparableItem> = emptyList()
+    private var contactsList: List<IComparableItem> = emptyList()
     private var contactsFilteredList: List<IComparableItem> = emptyList()
     private lateinit var diffAdapter: DiffUtilCompositeAdapter
-    private var contactsList: RecyclerView? = null
+    private var contactsRecyclerView: RecyclerView? = null
     private var disposable: Disposable? = null
 
     private lateinit var listener: OnCallContact
@@ -108,7 +108,7 @@ class ContactListFragment : Fragment(), Filterable {
 
     override fun onStart() {
         super.onStart()
-        contactsList = view?.findViewById(R.id.contact_list_recyclerview)
+        contactsRecyclerView = view?.findViewById(R.id.contact_list_recyclerview)
 
         viewModel.onViewCreated()
 
@@ -116,7 +116,7 @@ class ContactListFragment : Fragment(), Filterable {
             .add(ContactDelegateAdapter())
             .build()
 
-        contactsList?.run {
+        contactsRecyclerView?.run {
             layoutManager = LinearLayoutManager(activity)
             adapter = diffAdapter
 
@@ -132,7 +132,7 @@ class ContactListFragment : Fragment(), Filterable {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(ComputationScheduler())
             .subscribe {
-                this.contacts = it
+                this.contactsList = it
                 displayContacts(it)
             }
     }
@@ -149,10 +149,10 @@ class ContactListFragment : Fragment(), Filterable {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
                 contactsFilteredList = if (charSearch.isEmpty()) {
-                    contacts
+                    contactsList
                 } else {
                     val resultList = ArrayList<IComparableItem>()
-                    for (row in contacts) {
+                    for (row in contactsList) {
                         if (row.content().toString().toLowerCase(Locale.ROOT).contains(
                                 charSearch.toLowerCase(
                                     Locale.ROOT
@@ -181,6 +181,6 @@ class ContactListFragment : Fragment(), Filterable {
 
     private fun displayContacts(list: List<IComparableItem>) {
         diffAdapter.swapData(list)
-        contactsList?.scrollToPosition(0)
+        contactsRecyclerView?.scrollToPosition(0)
     }
 }
