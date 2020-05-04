@@ -1,8 +1,11 @@
 package com.vasilevkin.greatcontacts.features.contactlist.viewmodel
 
 import android.content.Context
+import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.vasilevkin.greatcontacts.delegateadapter.diff.IComparableItem
+import com.vasilevkin.greatcontacts.features.contactlist.view.MainActivity
 import com.vasilevkin.greatcontacts.models.Person
 import com.vasilevkin.greatcontacts.models.localmodels.ContactLocalModel
 import com.vasilevkin.greatcontacts.repository.IContactRepository
@@ -12,8 +15,7 @@ import javax.inject.Inject
 
 
 class ContactListViewModel
-@Inject constructor(private val contactRepository: IContactRepository)
-    : ViewModel() {
+@Inject constructor(private val contactRepository: IContactRepository) : ViewModel() {
 
     private var disposable: Disposable? = null
 
@@ -31,6 +33,26 @@ class ContactListViewModel
     // Private methods
 
     private fun loadContacts() {
+
+        contactRepository.context = view
+
+        val contacts = contactRepository.getAllContacts()
+
+        val listPersonObserver = Observer<List<Person>> { list ->
+            Log.i("data", "> $list")
+
+            val objects = ArrayList<IComparableItem>(20)
+            for (i in list.indices) {
+                val item = ContactLocalModel(
+                    view,
+                    list[i]
+                )
+                objects.add(item)
+            }
+            contactList.onNext(objects)
+        }
+
+        contacts.observe(view as MainActivity, listPersonObserver)
 
     }
 

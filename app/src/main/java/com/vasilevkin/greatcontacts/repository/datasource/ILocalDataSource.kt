@@ -1,11 +1,13 @@
 package com.vasilevkin.greatcontacts.repository.datasource
 
-import androidx.lifecycle.LiveData
+import android.content.Context
 import com.vasilevkin.greatcontacts.models.Person
 
 
 interface ILocalDataSource {
 
-    fun getContacts(): LiveData<List<Person>>
+    var context: Context?
+
+    fun getContacts(): List<Person>
 
 }
