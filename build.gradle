@@ -47,6 +47,7 @@ ext {
             dagger_javax_annotation: "1.0",
             rxjava                 : "2.2.10",
             rxandroid              : "2.1.1",
+            gson                   : "2.8.5",
             stetho                 : "1.5.1"
     ]
 }

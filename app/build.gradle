@@ -60,4 +60,7 @@ dependencies {
     // For debugging
     implementation "com.facebook.stetho:stetho:$versions.stetho"
     implementation "com.facebook.stetho:stetho-okhttp3:$versions.stetho"
+
+    // Gson
+    implementation "com.google.code.gson:gson:$versions.gson"
 }
