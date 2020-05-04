@@ -1,6 +1,9 @@
 package com.vasilevkin.greatcontacts.features.contactlist.viewmodel
 
 import android.content.Context
+import android.os.Handler
+import android.os.HandlerThread
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -37,19 +40,25 @@ class ContactListViewModel
         contactRepository.context = view
 
         val contacts = contactRepository.getAllContacts()
-
         val listPersonObserver = Observer<List<Person>> { list ->
-            Log.i("data", "> $list")
-
-            val objects = ArrayList<IComparableItem>(20)
-            for (i in list.indices) {
-                val item = ContactLocalModel(
-                    view,
-                    list[i]
-                )
-                objects.add(item)
+            val handlerThread = HandlerThread("newThread")
+            handlerThread.start()
+            val looper = handlerThread.looper
+            val handler = Handler(looper)
+            handler.post {
+                val objects = ArrayList<IComparableItem>(20)
+                for (i in list.indices) {
+                    val item = ContactLocalModel(
+                        view,
+                        list[i]
+                    )
+                    objects.add(item)
+                }
+                val mainHandler = Handler(Looper.getMainLooper())
+                mainHandler.post {
+                    contactList.onNext(objects)
+                }
             }
-            contactList.onNext(objects)
         }
 
         contacts.observe(view as MainActivity, listPersonObserver)

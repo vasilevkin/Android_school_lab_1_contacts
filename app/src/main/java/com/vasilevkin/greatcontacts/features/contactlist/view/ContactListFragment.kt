@@ -16,7 +16,9 @@ import com.vasilevkin.greatcontacts.delegateadapter.diff.IComparableItem
 import com.vasilevkin.greatcontacts.features.contactlist.adapter.ContactDelegateAdapter
 import com.vasilevkin.greatcontacts.features.contactlist.viewmodel.ContactListViewModel
 import com.vasilevkin.greatcontacts.models.Person
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.internal.schedulers.ComputationScheduler
 import javax.inject.Inject
 
 
@@ -108,9 +110,12 @@ class ContactListFragment : Fragment() {
             )
         }
 
-        this.disposable = viewModel.contactList.subscribe {
-            displayContacts(it)
-        }
+        this.disposable = viewModel.contactList
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(ComputationScheduler())
+            .subscribe {
+                displayContacts(it)
+            }
     }
 
     override fun onStop() {
