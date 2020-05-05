@@ -3,6 +3,7 @@ package com.vasilevkin.greatcontacts.di
 import android.content.Context
 import com.vasilevkin.greatcontacts.features.contactdetails.view.ContactDetailsFragment
 import com.vasilevkin.greatcontacts.features.contactlist.view.ContactListFragment
+import com.vasilevkin.greatcontacts.features.contactlist.view.MainActivity
 import com.vasilevkin.greatcontacts.features.splash.view.SplashActivity
 import dagger.BindsInstance
 import dagger.Component
@@ -21,6 +22,7 @@ interface AppComponent {
     }
 
     fun inject(activity: SplashActivity)
+    fun inject(activity: MainActivity)
 
     fun inject(fragment: ContactListFragment)
     fun inject(fragment: ContactDetailsFragment)

@@ -17,10 +17,12 @@ import com.vasilevkin.greatcontacts.MainApplication
 import com.vasilevkin.greatcontacts.R
 import com.vasilevkin.greatcontacts.di.AppComponent
 import com.vasilevkin.greatcontacts.features.contactdetails.view.ContactDetailsFragment
+import com.vasilevkin.greatcontacts.features.sharedviewmodel.SharedViewModel
 import com.vasilevkin.greatcontacts.models.Person
 import com.vasilevkin.greatcontacts.utils.PERMISSION_REQUEST_CODE
 import com.vasilevkin.greatcontacts.utils.TAG_CONTACT_DETAILS_FRAGMENT
 import com.vasilevkin.greatcontacts.utils.TAG_CONTACT_LIST_FRAGMENT
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity(),
@@ -29,11 +31,15 @@ class MainActivity : AppCompatActivity(),
 
     lateinit var appComponent: AppComponent
 
+    @Inject
+    lateinit var sharedViewModel: SharedViewModel
+
     // Lifecycle methods
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         appComponent = (application as MainApplication).appComponent
+        (application as MainApplication).appComponent.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -71,8 +77,9 @@ class MainActivity : AppCompatActivity(),
     // interface ContactListFragment.OnContactSelected
 
     override fun onSelected(contact: Person) {
-        val detailsFragment = ContactDetailsFragment.newInstance(
-        )
+        val detailsFragment = ContactDetailsFragment.newInstance()
+
+        sharedViewModel.selectContact(contact)
 
         supportFragmentManager
             .beginTransaction()
