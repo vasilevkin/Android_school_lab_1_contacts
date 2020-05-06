@@ -11,10 +11,13 @@ class DiffUtilCompositeAdapter private constructor(typeToAdapterMap: SparseArray
     CompositeDelegateAdapter<IComparableItem>(typeToAdapterMap) {
 
     override fun swapData(data: List<IComparableItem>) {
-        val diffCallback = DiffUtilCallback(this.data, data)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        this.data = data
-        diffResult.dispatchUpdatesTo(this)
+        super.swapData(data)
+
+        // Commented out because of slow updates when data contains more than 2k items.
+//        val diffCallback = DiffUtilCallback(this.data, data)
+//        val diffResult = DiffUtil.calculateDiff(diffCallback)
+//        this.data = data
+//        diffResult.dispatchUpdatesTo(this)
     }
 
     class Builder {
