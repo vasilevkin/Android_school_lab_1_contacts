@@ -9,6 +9,7 @@ import com.vasilevkin.greatcontacts.models.Person
 class SharedViewModel : ViewModel() {
 
     private val selectedContact = MutableLiveData<Person>()
+    var newContact: Boolean = false
 
     fun selectContact(contact: Person) {
         selectedContact.value = contact

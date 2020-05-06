@@ -3,6 +3,7 @@ package com.vasilevkin.greatcontacts.features.contactdetails.view
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -60,17 +61,29 @@ class ContactDetailsFragment : Fragment() {
             phone_edit_text.setText(contact.phone)
             email_edit_text.setText(contact.email)
 
-            (activity as AppCompatActivity).supportActionBar?.title =
+            val title = if (sharedViewModel.newContact) {
+                "New Contact"
+            } else {
                 "${contact.firstName} ${contact.lastName}"
+            }
+
+            (activity as AppCompatActivity).supportActionBar?.title = title
         }
 
         sharedViewModel.getSelectedContact().observe(viewLifecycleOwner, selectContactObserver)
     }
 
     // Menu
-    
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.contact_details_menu, menu)
+
+        if (sharedViewModel.newContact) {
+            inflater.inflate(R.menu.new_contact_details_menu, menu)
+            makeFormEditable(true)
+        } else {
+            inflater.inflate(R.menu.contact_details_menu, menu)
+        }
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -79,6 +92,10 @@ class ContactDetailsFragment : Fragment() {
 
         if (id == R.id.edit_contact_details_menu_button) {
             makeFormEditable(true)
+        }
+        if (id == R.id.save_contact_details_menu_button) {
+            Toast.makeText(activity, "TODO: Implement save new contact", Toast.LENGTH_LONG)
+                .show()
         }
         return super.onOptionsItemSelected(item)
     }

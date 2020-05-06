@@ -18,7 +18,7 @@ class ContactDelegateAdapter : KDelegateAdapter<ContactLocalModel>() {
 
             itemView.setOnClickListener {
                 val activity = item.context as ContactListFragment.OnContactSelected
-                activity.onSelected(item.contact)
+                activity.onSelected(item.contact, false)
             }
 
             call_image_button.setOnClickListener {

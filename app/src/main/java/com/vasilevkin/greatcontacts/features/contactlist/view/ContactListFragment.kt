@@ -2,9 +2,7 @@ package com.vasilevkin.greatcontacts.features.contactlist.view
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.appcompat.app.AppCompatActivity
@@ -52,7 +50,7 @@ class ContactListFragment : Fragment(), Filterable {
     }
 
     interface OnContactSelected {
-        fun onSelected(contact: Person)
+        fun onSelected(contact: Person, newContact: Boolean)
     }
 
     // Fragment Lifecycle methods
@@ -77,6 +75,12 @@ class ContactListFragment : Fragment(), Filterable {
                 "$context must implement OnCallContact."
             )
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -140,6 +144,25 @@ class ContactListFragment : Fragment(), Filterable {
     override fun onStop() {
         super.onStop()
         this.disposable?.dispose()
+    }
+
+    // Menu
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.contacts_list_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.itemId
+
+        if (id == R.id.add_new_contact_menu_button) {
+
+            val activity = activity as OnContactSelected
+            activity.onSelected(Person("","","",""), true)
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     // interface Filterable

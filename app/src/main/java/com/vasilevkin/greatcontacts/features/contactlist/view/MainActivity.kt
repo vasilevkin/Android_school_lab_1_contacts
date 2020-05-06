@@ -76,10 +76,11 @@ class MainActivity : AppCompatActivity(),
 
     // interface ContactListFragment.OnContactSelected
 
-    override fun onSelected(contact: Person) {
+    override fun onSelected(contact: Person, newContact: Boolean) {
         val detailsFragment = ContactDetailsFragment.newInstance()
 
         sharedViewModel.selectContact(contact)
+        sharedViewModel.newContact = newContact
 
         supportFragmentManager
             .beginTransaction()
