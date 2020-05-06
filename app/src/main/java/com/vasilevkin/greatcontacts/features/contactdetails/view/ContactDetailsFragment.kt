@@ -2,9 +2,7 @@ package com.vasilevkin.greatcontacts.features.contactdetails.view
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -37,6 +35,12 @@ class ContactDetailsFragment : Fragment() {
         (requireActivity() as MainActivity).appComponent.inject(this)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +51,8 @@ class ContactDetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ContactDetailsViewModel::class.java)
+
+        makeFormEditable(false)
 
         val selectContactObserver = Observer<Person> { contact ->
             first_name_edit_text.setText(contact.firstName)
@@ -59,5 +65,30 @@ class ContactDetailsFragment : Fragment() {
         }
 
         sharedViewModel.getSelectedContact().observe(viewLifecycleOwner, selectContactObserver)
+    }
+
+    // Menu
+    
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.contact_details_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.itemId
+
+        if (id == R.id.edit_contact_details_menu_button) {
+            makeFormEditable(true)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    // Private methods
+
+    private fun makeFormEditable(editable: Boolean) {
+        first_name_edit_text.isEnabled = editable
+        last_name_edit_text.isEnabled = editable
+        phone_edit_text.isEnabled = editable
+        email_edit_text.isEnabled = editable
     }
 }
