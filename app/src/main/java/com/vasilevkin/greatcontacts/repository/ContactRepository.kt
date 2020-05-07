@@ -16,6 +16,7 @@ class ContactRepository @Inject constructor(
     private val useCase2KotlinThreadBackground = UseCase2KotlinThreadBackground(localDataSource)
     private val useCase3Handler = UseCase3Handler(localDataSource)
     private val useCase4AsyncTask = UseCase4AsyncTask(localDataSource)
+    private val useCase5RxJava = UseCase5RxJava(localDataSource)
 
     override var context: Context? = null
 
@@ -32,6 +33,7 @@ class ContactRepository @Inject constructor(
             UseCases.UseCase2KotlinThreadBackground -> useCase2KotlinThreadBackground.getPersons()
             UseCases.UseCase3Handler -> useCase3Handler.getPersons()
             UseCases.UseCase4AsyncTask -> useCase4AsyncTask.getPersons()
+            UseCases.UseCase5RxJava -> useCase5RxJava.getPersons()
         }
     }
 
@@ -54,5 +56,6 @@ class ContactRepository @Inject constructor(
         useCase2KotlinThreadBackground.context = context
         useCase3Handler.context = context
         useCase4AsyncTask.context = context
+        useCase5RxJava.context = context
     }
 }
