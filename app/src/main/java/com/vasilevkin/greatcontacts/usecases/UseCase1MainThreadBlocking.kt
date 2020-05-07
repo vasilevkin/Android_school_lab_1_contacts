@@ -7,9 +7,7 @@ import com.vasilevkin.greatcontacts.models.Person
 import com.vasilevkin.greatcontacts.repository.datasource.ILocalDataSource
 
 
-class UseCase1MainThreadBlocking(
-    private val localDataSource: ILocalDataSource
-) : IUseCase {
+class UseCase1MainThreadBlocking(private val localDataSource: ILocalDataSource) : IUseCase {
 
     private val mutableLiveData = MutableLiveData<List<Person>>()
 

@@ -8,9 +8,7 @@ import com.vasilevkin.greatcontacts.repository.datasource.ILocalDataSource
 import kotlin.concurrent.thread
 
 
-class UseCase2KotlinThreadBackground(
-    private val localDataSource: ILocalDataSource
-) : IUseCase {
+class UseCase2KotlinThreadBackground(private val localDataSource: ILocalDataSource) : IUseCase {
 
     private val mutableLiveData = MutableLiveData<List<Person>>()
 
@@ -18,8 +16,7 @@ class UseCase2KotlinThreadBackground(
 
     // interface IUseCase
 
-    override
-    fun getPersons(): LiveData<List<Person>> {
+    override fun getPersons(): LiveData<List<Person>> {
         localDataSource.context = context
 
         thread {
