@@ -1,11 +1,11 @@
 # Android_school_lab_1_contacts
 
 Loading a huge number of contacts from file is implemented in the repository with these use cases:
-* Main Thread (blocking)
-* Kotlin Thread
-* Handler
+* 1. Main Thread (blocking)
+* 2. Kotlin Thread
+* 3. Handler
+* 4. AsyncTask
 * Loader
-* AsyncTask
 * RxJava
 * Coroutines
 * ThreadPoolExecutor
