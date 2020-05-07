@@ -8,6 +8,8 @@ Loading a huge number of contacts from file is implemented in the repository wit
 * AsyncTask
 * RxJava
 * Coroutines
+* ThreadPoolExecutor
+* Java executors
 
 Switching use cases is possible from the Options menu on the contacts list, changes in code not required.
 
