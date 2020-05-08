@@ -8,5 +8,6 @@ enum class UseCases {
     UseCase4AsyncTask,
     UseCase5RxJava,
     UseCase6ThreadPoolExecutor,
-    UseCase7Executor
+    UseCase7Executor,
+    UseCase8Loader
 }
