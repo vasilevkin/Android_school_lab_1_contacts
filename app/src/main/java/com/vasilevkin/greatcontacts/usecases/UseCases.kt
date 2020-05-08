@@ -6,5 +6,6 @@ enum class UseCases {
     UseCase2KotlinThreadBackground,
     UseCase3Handler,
     UseCase4AsyncTask,
-    UseCase5RxJava
+    UseCase5RxJava,
+    UseCase6ThreadPoolExecutor
 }
