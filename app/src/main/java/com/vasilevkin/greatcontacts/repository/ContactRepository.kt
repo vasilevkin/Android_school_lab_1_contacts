@@ -20,6 +20,7 @@ class ContactRepository @Inject constructor(
     private val useCase6ThreadPoolExecutor = UseCase6ThreadPoolExecutor(localDataSource)
     private val useCase7Executor = UseCase7Executor(localDataSource)
     private val useCase8Loader = UseCase8Loader(localDataSource)
+    private val useCase9Coroutines = UseCase9Coroutines(localDataSource)
 
     override var context: Context? = null
 
@@ -40,6 +41,7 @@ class ContactRepository @Inject constructor(
             UseCases.UseCase6ThreadPoolExecutor -> useCase6ThreadPoolExecutor.getPersons()
             UseCases.UseCase7Executor -> useCase7Executor.getPersons()
             UseCases.UseCase8Loader -> useCase8Loader.getPersons()
+            UseCases.UseCase9Coroutines -> useCase9Coroutines.getPersons()
         }
     }
 
@@ -66,5 +68,6 @@ class ContactRepository @Inject constructor(
         useCase6ThreadPoolExecutor.context = context
         useCase7Executor.context = context
         useCase8Loader.context = context
+        useCase9Coroutines.context = context
     }
 }

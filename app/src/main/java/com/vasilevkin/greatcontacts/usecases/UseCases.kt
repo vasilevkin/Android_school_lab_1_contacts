@@ -9,5 +9,6 @@ enum class UseCases {
     UseCase5RxJava,
     UseCase6ThreadPoolExecutor,
     UseCase7Executor,
-    UseCase8Loader
+    UseCase8Loader,
+    UseCase9Coroutines
 }
