@@ -4,6 +4,53 @@
     <item
         android:id="@+id/add_new_contact_menu_button"
         android:title="Add"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/useCase1MainThreadBlocking"
+            android:orderInCategory="100"
+            android:title="UseCase1MainThreadBlocking"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/useCase2KotlinThreadBackground"
+            android:orderInCategory="200"
+            android:title="UseCase2KotlinThreadBackground"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/useCase3Handler"
+            android:orderInCategory="300"
+            android:title="UseCase3Handler"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/useCase4AsyncTask"
+            android:orderInCategory="300"
+            android:title="UseCase4AsyncTask"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/useCase5RxJava"
+            android:orderInCategory="300"
+            android:title="UseCase5RxJava"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/useCase6ThreadPoolExecutor"
+            android:orderInCategory="300"
+            android:title="UseCase6ThreadPoolExecutor"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/useCase7Executor"
+            android:orderInCategory="300"
+            android:title="UseCase7Executor"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/useCase8Loader"
+            android:orderInCategory="300"
+            android:title="UseCase8Loader"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/useCase9Coroutines"
+            android:orderInCategory="300"
+            android:title="UseCase9Coroutines"
+            app:showAsAction="never" />
+    </group>
 </menu>
