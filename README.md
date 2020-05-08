@@ -5,11 +5,11 @@ Loading a huge number of contacts from file is implemented in the repository wit
 * 2. Kotlin Thread
 * 3. Handler
 * 4. AsyncTask
-* Loader
-* RxJava
-* Coroutines
-* ThreadPoolExecutor
-* Java executors
+* 5. RxJava
+* 6. ThreadPoolExecutor
+* 7. Java executor
+* 8. Loader
+* 9. Coroutines
 
 Switching use cases is possible from the Options menu on the contacts list, changes in code not required.
 
