@@ -30,3 +30,4 @@ DiffUtilCompositeAdapter
 DiffUtilCallback
 RxJava
 Gson
+SharedPreferences
