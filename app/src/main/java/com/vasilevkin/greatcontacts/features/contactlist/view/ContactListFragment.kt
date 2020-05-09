@@ -1,6 +1,7 @@
 package com.vasilevkin.greatcontacts.features.contactlist.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Filter
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.vasilevkin.greatcontacts.R
 import com.vasilevkin.greatcontacts.delegateadapter.diff.DiffUtilCompositeAdapter
 import com.vasilevkin.greatcontacts.delegateadapter.diff.IComparableItem
@@ -155,19 +157,23 @@ class ContactListFragment : Fragment(), Filterable {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id: Int = item.itemId
+        when (val id: Int = item.itemId) {
+            R.id.add_new_contact_menu_button -> {
+                val activity = activity as OnContactSelected
 
-        if (id == R.id.add_new_contact_menu_button) {
-            val activity = activity as OnContactSelected
+                activity.onSelected(Person("", "", "", ""), true)
+            }
+            R.id.show_licenses_menu_button -> {
+                startActivity(Intent(activity, OssLicensesMenuActivity::class.java))
+            }
+            else -> {
+                viewModel.onRadioButtonSelected(id)
 
-            activity.onSelected(Person("", "", "", ""), true)
-        } else {
-            viewModel.onRadioButtonSelected(id)
+                Toast.makeText(activity, "Select multithreading: ${item.title}", Toast.LENGTH_LONG)
+                    .show()
 
-            Toast.makeText(activity, "Select multithreading: ${item.title}", Toast.LENGTH_LONG)
-                .show()
-
-            item.isChecked = true
+                item.isChecked = true
+            }
         }
 
         return super.onOptionsItemSelected(item)
