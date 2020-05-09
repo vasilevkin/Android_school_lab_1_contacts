@@ -3,54 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/add_new_contact_menu_button"
-        android:title="Add"
+        android:title="@string/menu_item_add"
         app:showAsAction="ifRoom" />
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/useCase1MainThreadBlocking"
             android:orderInCategory="100"
-            android:title="UseCase1MainThreadBlocking"
+            android:title="@string/menu_item_usecase1mainthreadblocking"
             app:showAsAction="never" />
         <item
             android:id="@+id/useCase2KotlinThreadBackground"
             android:orderInCategory="200"
-            android:title="UseCase2KotlinThreadBackground"
+            android:title="@string/menu_item_usecase2kotlinthreadbackground"
             app:showAsAction="never" />
         <item
             android:id="@+id/useCase3Handler"
             android:orderInCategory="300"
-            android:title="UseCase3Handler"
+            android:title="@string/menu_item_usecase3handler"
             app:showAsAction="never" />
         <item
             android:id="@+id/useCase4AsyncTask"
             android:orderInCategory="300"
-            android:title="UseCase4AsyncTask"
+            android:title="@string/menu_item_usecase4asynctask"
             app:showAsAction="never" />
         <item
             android:id="@+id/useCase5RxJava"
             android:orderInCategory="300"
-            android:title="UseCase5RxJava"
+            android:title="@string/menu_item_usecase5rxjava"
             app:showAsAction="never" />
         <item
             android:id="@+id/useCase6ThreadPoolExecutor"
             android:orderInCategory="300"
-            android:title="UseCase6ThreadPoolExecutor"
+            android:title="@string/menu_item_usecase6threadpoolexecutor"
             app:showAsAction="never" />
         <item
             android:id="@+id/useCase7Executor"
             android:orderInCategory="300"
-            android:title="UseCase7Executor"
+            android:title="@string/menu_item_usecase7executor"
             app:showAsAction="never" />
         <item
             android:id="@+id/useCase8Loader"
             android:orderInCategory="300"
-            android:title="UseCase8Loader"
+            android:title="@string/menu_item_usecase8loader"
             app:showAsAction="never" />
         <item
             android:id="@+id/useCase9Coroutines"
             android:orderInCategory="300"
-            android:title="UseCase9Coroutines"
+            android:title="@string/menu_item_usecase9coroutines"
             app:showAsAction="never" />
     </group>
 </menu>

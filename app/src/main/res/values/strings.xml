@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Great Contacts</string>
+    <string name="menu_item_add">Add</string>
+    <string name="menu_item_usecase1mainthreadblocking">UseCase1MainThreadBlocking</string>
+    <string name="menu_item_usecase2kotlinthreadbackground">UseCase2KotlinThreadBackground</string>
+    <string name="menu_item_usecase3handler">UseCase3Handler</string>
+    <string name="menu_item_usecase4asynctask">UseCase4AsyncTask</string>
+    <string name="menu_item_usecase5rxjava">UseCase5RxJava</string>
+    <string name="menu_item_usecase6threadpoolexecutor">UseCase6ThreadPoolExecutor</string>
+    <string name="menu_item_usecase7executor">UseCase7Executor</string>
+    <string name="menu_item_usecase8loader">UseCase8Loader</string>
+    <string name="menu_item_usecase9coroutines">UseCase9Coroutines</string>
+    <string name="menu_item_save">Save</string>
+    <string name="menu_item_edit">Edit</string>
+    <string name="text_view_firstname">Firstname</string>
+    <string name="text_view_lastname">Lastname</string>
+    <string name="text_view_phone">Phone</string>
+    <string name="text_view_email">Email</string>
+    <string name="default_text_firstname_lastname">Firstname Lastname</string>
+    <string name="default_text_phone">(000) 000-00-00</string>
+    <string name="default_text_email">email@domain.com</string>
+    <string name="default_text_firstname">Firstname</string>
+    <string name="default_text_lastname">Lastname</string>
 </resources>
