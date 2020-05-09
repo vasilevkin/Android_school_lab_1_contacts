@@ -31,3 +31,4 @@ DiffUtilCallback
 RxJava
 Gson
 SharedPreferences
+Repository pattern with 2 repos used simultaneously

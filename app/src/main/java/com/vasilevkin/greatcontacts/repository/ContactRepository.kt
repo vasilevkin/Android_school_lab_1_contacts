@@ -9,7 +9,8 @@ import javax.inject.Inject
 
 
 class ContactRepository @Inject constructor(
-    private val localDataSource: ILocalDataSource
+    private val localDataSource: ILocalDataSource,
+    private val useCaseStorage : IUseCaseStorage
 ) : IContactRepository {
 
     private val useCase1MainThreadBlocking = UseCase1MainThreadBlocking(localDataSource)
@@ -29,7 +30,10 @@ class ContactRepository @Inject constructor(
     override fun getAllContacts(): LiveData<List<Person>> {
         setContextForAllUseCases(context)
 
-        val useCase = UseCases.UseCase1MainThreadBlocking
+        useCaseStorage.context = context
+
+        val useCase = useCaseStorage.getSelectedUseCase()
+
 //        val useCase = UseCases.UseCase1MainThreadBlocking
 
         return when (useCase) {
