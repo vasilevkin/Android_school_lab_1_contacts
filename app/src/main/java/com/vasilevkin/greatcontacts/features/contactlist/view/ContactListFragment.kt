@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -157,11 +158,18 @@ class ContactListFragment : Fragment(), Filterable {
         val id: Int = item.itemId
 
         if (id == R.id.add_new_contact_menu_button) {
-
             val activity = activity as OnContactSelected
-            activity.onSelected(Person("","","",""), true)
 
+            activity.onSelected(Person("", "", "", ""), true)
+        } else {
+            viewModel.onRadioButtonSelected(id)
+
+            Toast.makeText(activity, "Select multithreading: ${item.title}", Toast.LENGTH_LONG)
+                .show()
+
+            item.isChecked = true
         }
+
         return super.onOptionsItemSelected(item)
     }
 

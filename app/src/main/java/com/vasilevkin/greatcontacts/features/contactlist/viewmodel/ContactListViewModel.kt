@@ -4,21 +4,26 @@ import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.vasilevkin.greatcontacts.R
 import com.vasilevkin.greatcontacts.delegateadapter.diff.IComparableItem
 import com.vasilevkin.greatcontacts.features.contactlist.view.MainActivity
 import com.vasilevkin.greatcontacts.models.Person
 import com.vasilevkin.greatcontacts.models.localmodels.ContactLocalModel
 import com.vasilevkin.greatcontacts.repository.IContactRepository
+import com.vasilevkin.greatcontacts.repository.IUseCaseStorage
+import com.vasilevkin.greatcontacts.usecases.UseCases
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 
 class ContactListViewModel
-@Inject constructor(private val contactRepository: IContactRepository) : ViewModel() {
+@Inject constructor(
+    private val contactRepository: IContactRepository,
+    private val useCaseStorage: IUseCaseStorage
+) : ViewModel() {
 
     private var disposable: Disposable? = null
 
@@ -26,11 +31,28 @@ class ContactListViewModel
     lateinit var view: Context
 
 
-
-
     fun onViewCreated() {
         generateNewData()
         loadContacts()
+    }
+
+    fun onRadioButtonSelected(id: Int) {
+        useCaseStorage.context = view
+
+        val useCase = when (id) {
+            R.id.radio_button_useCase1MainThreadBlocking -> UseCases.UseCase1MainThreadBlocking
+            R.id.radio_button_useCase2KotlinThreadBackground -> UseCases.UseCase2KotlinThreadBackground
+            R.id.radio_button_useCase3Handler -> UseCases.UseCase3Handler
+            R.id.radio_button_useCase4AsyncTask -> UseCases.UseCase4AsyncTask
+            R.id.radio_button_useCase5RxJava -> UseCases.UseCase5RxJava
+            R.id.radio_button_useCase6ThreadPoolExecutor -> UseCases.UseCase6ThreadPoolExecutor
+            R.id.radio_button_useCase7Executor -> UseCases.UseCase7Executor
+            R.id.radio_button_useCase8Loader -> UseCases.UseCase8Loader
+            R.id.radio_button_useCase9Coroutines -> UseCases.UseCase9Coroutines
+            else -> UseCases.UseCase9Coroutines
+        }
+
+        useCaseStorage.setSelectedUseCase(useCase)
     }
 
     // Private methods

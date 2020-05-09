@@ -5,6 +5,7 @@ import com.vasilevkin.greatcontacts.features.sharedviewmodel.SharedViewModel
 import com.vasilevkin.greatcontacts.features.splash.ISplashContract
 import com.vasilevkin.greatcontacts.features.splash.presenter.SplashPresenter
 import com.vasilevkin.greatcontacts.repository.IContactRepository
+import com.vasilevkin.greatcontacts.repository.IUseCaseStorage
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -14,8 +15,11 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
-    fun provideContactListViewModel(repo: IContactRepository): ContactListViewModel {
-        return ContactListViewModel(repo)
+    fun provideContactListViewModel(
+        repo: IContactRepository,
+        storage: IUseCaseStorage
+    ): ContactListViewModel {
+        return ContactListViewModel(repo, storage)
     }
 
     @Singleton
