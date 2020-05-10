@@ -1,7 +1,9 @@
 package com.vasilevkin.greatcontacts.repository
 
 import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.vasilevkin.greatcontacts.models.Person
 import com.vasilevkin.greatcontacts.repository.datasource.ILocalDataSource
 import com.vasilevkin.greatcontacts.usecases.*
@@ -48,7 +50,24 @@ class ContactRepository @Inject constructor(
     }
 
     override fun addNewContact(contact: Person) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val contacts = getAllContacts()
+        val listPersonObserver = Observer<List<Person>> { list ->
+            val newList = list.toMutableList()
+
+            newList.add(contact)
+
+            val status = saveAllContacts(newList)
+            val textMessage = if (status) {
+                "All contacts are saved successfully"
+            } else {
+                "Unknown error when save contacts"
+            }
+
+            Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
+                .show()
+        }
+
+        contacts.observeForever(listPersonObserver)
     }
 
     override fun updateContact(contact: Person) {
@@ -71,5 +90,9 @@ class ContactRepository @Inject constructor(
         useCase7Executor.context = context
         useCase8Loader.context = context
         useCase9Coroutines.context = context
+    }
+
+    private fun saveAllContacts(list: List<Person>): Boolean {
+        return useCase1MainThreadBlocking.savePersons(list)
     }
 }

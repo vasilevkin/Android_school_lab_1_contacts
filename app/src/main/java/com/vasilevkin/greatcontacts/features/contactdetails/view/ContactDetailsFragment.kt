@@ -3,11 +3,9 @@ package com.vasilevkin.greatcontacts.features.contactdetails.view
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.vasilevkin.greatcontacts.R
 import com.vasilevkin.greatcontacts.features.contactdetails.viewmodel.ContactDetailsViewModel
 import com.vasilevkin.greatcontacts.features.contactlist.view.MainActivity
@@ -26,7 +24,9 @@ class ContactDetailsFragment : Fragment() {
 
     @Inject
     lateinit var sharedViewModel: SharedViewModel
-    private lateinit var viewModel: ContactDetailsViewModel
+
+    @Inject
+    lateinit var viewModel: ContactDetailsViewModel
 
     // Fragment Lifecycle methods
 
@@ -51,7 +51,6 @@ class ContactDetailsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ContactDetailsViewModel::class.java)
 
         makeFormEditable(false)
 
@@ -62,7 +61,7 @@ class ContactDetailsFragment : Fragment() {
             email_edit_text.setText(contact.email)
 
             val title = if (sharedViewModel.newContact) {
-                "New Contact"
+                getString(R.string.title_new_contact)
             } else {
                 "${contact.firstName} ${contact.lastName}"
             }
@@ -94,8 +93,15 @@ class ContactDetailsFragment : Fragment() {
             makeFormEditable(true)
         }
         if (id == R.id.save_contact_details_menu_button) {
-            Toast.makeText(activity, "TODO: Implement save new contact", Toast.LENGTH_LONG)
-                .show()
+            val person = Person(
+                first_name_edit_text.text.toString(),
+                last_name_edit_text.text.toString(),
+                phone_edit_text.text.toString(),
+                email_edit_text.text.toString()
+            )
+
+            viewModel.onSavePressed(person)
+            activity?.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }

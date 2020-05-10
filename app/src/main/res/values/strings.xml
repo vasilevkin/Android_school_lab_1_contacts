@@ -22,4 +22,5 @@
     <string name="default_text_firstname">Firstname</string>
     <string name="default_text_lastname">Lastname</string>
     <string name="menu_item_show_oss_licenses">Show OSS Licenses</string>
+    <string name="title_new_contact">New Contact</string>
 </resources>

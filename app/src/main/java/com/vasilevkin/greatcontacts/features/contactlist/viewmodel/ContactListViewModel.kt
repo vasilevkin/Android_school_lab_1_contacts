@@ -30,6 +30,7 @@ class ContactListViewModel
     var contactList: BehaviorSubject<List<IComparableItem>> = BehaviorSubject.create()
     lateinit var view: Context
 
+    // Public methods
 
     fun onViewCreated() {
         generateNewData()

@@ -13,6 +13,9 @@ Loading a huge number of contacts from file is implemented in the repository wit
 
 Switching use cases is possible from the Options menu on the contacts list, changes in code not required.
 
+Add a new contact, edit contact, save all contacts to json file implementation is suboptimal and includes only basic error handling.
+The app doesn't have any optimisation for tablets.
+The project doesn't include any tests.
 
 Technologies used in the project is for educational purposes only and the technology mix is a way overkill for such small project.
 
