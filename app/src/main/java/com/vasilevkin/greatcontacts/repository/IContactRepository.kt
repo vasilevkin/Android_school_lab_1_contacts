@@ -13,7 +13,7 @@ interface IContactRepository {
 
     fun addNewContact(contact: Person)
 
-    fun updateContact(contact: Person)
+    fun updateContact(contact: Person, updatedContact: Person)
 
     fun deleteContact(contact: Person)
 }

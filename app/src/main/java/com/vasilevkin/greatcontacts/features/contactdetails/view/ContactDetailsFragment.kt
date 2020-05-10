@@ -28,6 +28,8 @@ class ContactDetailsFragment : Fragment() {
     @Inject
     lateinit var viewModel: ContactDetailsViewModel
 
+    private var isEdited: Boolean = false
+
     // Fragment Lifecycle methods
 
     override fun onAttach(context: Context) {
@@ -63,6 +65,7 @@ class ContactDetailsFragment : Fragment() {
             val title = if (sharedViewModel.newContact) {
                 getString(R.string.title_new_contact)
             } else {
+                viewModel.selectedContact = contact
                 "${contact.firstName} ${contact.lastName}"
             }
 
@@ -70,6 +73,21 @@ class ContactDetailsFragment : Fragment() {
         }
 
         sharedViewModel.getSelectedContact().observe(viewLifecycleOwner, selectContactObserver)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        if (isEdited) {
+            val updatedContact = Person(
+                first_name_edit_text.text.toString(),
+                last_name_edit_text.text.toString(),
+                phone_edit_text.text.toString(),
+                email_edit_text.text.toString()
+            )
+
+            viewModel.onContactEdited(updatedContact)
+        }
     }
 
     // Menu
@@ -91,6 +109,7 @@ class ContactDetailsFragment : Fragment() {
 
         if (id == R.id.edit_contact_details_menu_button) {
             makeFormEditable(true)
+
         }
         if (id == R.id.save_contact_details_menu_button) {
             val person = Person(
@@ -113,5 +132,6 @@ class ContactDetailsFragment : Fragment() {
         last_name_edit_text.isEnabled = editable
         phone_edit_text.isEnabled = editable
         email_edit_text.isEnabled = editable
+        isEdited = editable
     }
 }

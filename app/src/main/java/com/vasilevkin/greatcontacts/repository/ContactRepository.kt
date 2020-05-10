@@ -2,8 +2,10 @@ package com.vasilevkin.greatcontacts.repository
 
 import android.content.Context
 import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.vasilevkin.greatcontacts.features.contactlist.view.MainActivity
 import com.vasilevkin.greatcontacts.models.Person
 import com.vasilevkin.greatcontacts.repository.datasource.ILocalDataSource
 import com.vasilevkin.greatcontacts.usecases.*
@@ -69,9 +71,26 @@ class ContactRepository @Inject constructor(
 
         contacts.observeForever(listPersonObserver)
     }
+    override fun updateContact(contact: Person, updatedContact: Person) {
+        val contacts = getAllContacts()
 
-    override fun updateContact(contact: Person) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        contacts.observeOnce(context as MainActivity, Observer<List<Person>> {
+            if (it != null) {
+                val index = it.indexOf(contact)
+                val updatedContacts = it.toMutableList().apply {
+                    this[index] = updatedContact
+                }
+                val status = saveAllContacts(updatedContacts)
+                val textMessage = if (status) {
+                    "Updated contact is saved successfully"
+                } else {
+                    "Unknown error when save an updated contact"
+                }
+
+                Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
+                    .show()
+            }
+        })
     }
 
     override fun deleteContact(contact: Person) {
@@ -94,5 +113,15 @@ class ContactRepository @Inject constructor(
 
     private fun saveAllContacts(list: List<Person>): Boolean {
         return useCase1MainThreadBlocking.savePersons(list)
+    }
+
+
+    private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+        observe(lifecycleOwner, object : Observer<T> {
+            override fun onChanged(t: T?) {
+                observer.onChanged(t)
+                removeObserver(this)
+            }
+        })
     }
 }
