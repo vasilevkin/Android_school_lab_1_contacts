@@ -36,7 +36,8 @@ class ContactRepository @Inject constructor(
 
         useCaseStorage.context = context
 
-        val useCase = useCaseStorage.getSelectedUseCase()
+        val useCase = UseCases.UseCase1MainThreadBlocking
+//        val useCase = useCaseStorage.getSelectedUseCase()
 
         return when (useCase) {
             UseCases.UseCase1MainThreadBlocking -> useCase1MainThreadBlocking.getPersons()
@@ -56,19 +57,8 @@ class ContactRepository @Inject constructor(
 
         contacts.observeOnce(context as MainActivity, Observer<List<Person>> { list ->
             if (list != null) {
-                val newList = list.toMutableList()
 
-                newList.add(contact)
-
-                val status = saveAllContacts(newList)
-                val textMessage = if (status) {
-                    "New contact is saved successfully"
-                } else {
-                    "Unknown error when save a new contact"
-                }
-
-                Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
-                    .show()
+                useCase1MainThreadBlocking.addNewContactInList(contact, list)
             }
         })
     }

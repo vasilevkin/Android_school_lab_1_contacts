@@ -1,6 +1,7 @@
 package com.vasilevkin.greatcontacts.repository.datasource
 
 import android.content.Context
+import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.vasilevkin.greatcontacts.models.Person
@@ -54,6 +55,22 @@ class LocalDataSource : ILocalDataSource {
         return isSavedSuccessfully
     }
 
+    override fun addNewPersonInList(person: Person, list: List<Person>) {
+        val newList = list.toMutableList()
+
+        newList.add(person)
+
+        val status = saveContacts(newList)
+        val textMessage = if (status) {
+            "New contact is saved successfully"
+        } else {
+            "Unknown error when save a new contact"
+        }
+
+        Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
+            .show()
+    }
+    
     // Private methods
 
     private fun getJsonDataFromLocalFile(context: Context, fileName: String): String? {
