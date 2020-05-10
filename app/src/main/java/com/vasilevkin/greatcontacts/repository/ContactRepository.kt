@@ -68,19 +68,9 @@ class ContactRepository @Inject constructor(
 
         contacts.observeOnce(context as MainActivity, Observer<List<Person>> {
             if (it != null) {
-                val index = it.indexOf(contact)
-                val updatedContacts = it.toMutableList().apply {
-                    this[index] = updatedContact
-                }
-                val status = saveAllContacts(updatedContacts)
-                val textMessage = if (status) {
-                    "Updated contact is saved successfully"
-                } else {
-                    "Unknown error when save an updated contact"
-                }
 
-                Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
-                    .show()
+                useCase1MainThreadBlocking.updateContactInList(contact, updatedContact, it)
+
             }
         })
     }

@@ -70,7 +70,23 @@ class LocalDataSource : ILocalDataSource {
         Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
             .show()
     }
-    
+
+    override fun updatePersonInList(person: Person, updatedPerson: Person, list: List<Person>) {
+        val index = list.indexOf(person)
+        val updatedPersons = list.toMutableList().apply {
+            this[index] = updatedPerson
+        }
+        val status = saveContacts(updatedPersons)
+        val textMessage = if (status) {
+            "Updated contact is saved successfully"
+        } else {
+            "Unknown error when save an updated contact"
+        }
+
+        Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
+            .show()
+    }
+
     // Private methods
 
     private fun getJsonDataFromLocalFile(context: Context, fileName: String): String? {

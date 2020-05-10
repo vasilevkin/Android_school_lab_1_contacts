@@ -14,4 +14,6 @@ interface ILocalDataSource {
 
     fun addNewPersonInList(person: Person, list: List<Person>)
 
+    fun updatePersonInList(person: Person, updatedPerson: Person, list: List<Person>)
+
 }
