@@ -1,6 +1,8 @@
 package com.vasilevkin.greatcontacts.repository.datasource
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -67,8 +69,12 @@ class LocalDataSource : ILocalDataSource {
             "Unknown error when save a new contact"
         }
 
-        Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
-            .show()
+        val mainHandler = Handler(Looper.getMainLooper())
+
+        mainHandler.post {
+            Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
+                .show()
+        }
     }
 
     override fun updatePersonInList(person: Person, updatedPerson: Person, list: List<Person>) {
@@ -83,8 +89,12 @@ class LocalDataSource : ILocalDataSource {
             "Unknown error when save an updated contact"
         }
 
-        Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
-            .show()
+        val mainHandler = Handler(Looper.getMainLooper())
+
+        mainHandler.post {
+            Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
+                .show()
+        }
     }
 
     // Private methods
