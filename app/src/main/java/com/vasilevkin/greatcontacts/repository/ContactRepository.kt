@@ -53,24 +53,26 @@ class ContactRepository @Inject constructor(
 
     override fun addNewContact(contact: Person) {
         val contacts = getAllContacts()
-        val listPersonObserver = Observer<List<Person>> { list ->
-            val newList = list.toMutableList()
 
-            newList.add(contact)
+        contacts.observeOnce(context as MainActivity, Observer<List<Person>> { list ->
+            if (list != null) {
+                val newList = list.toMutableList()
 
-            val status = saveAllContacts(newList)
-            val textMessage = if (status) {
-                "New contact is saved successfully"
-            } else {
-                "Unknown error when save a new contact"
+                newList.add(contact)
+
+                val status = saveAllContacts(newList)
+                val textMessage = if (status) {
+                    "New contact is saved successfully"
+                } else {
+                    "Unknown error when save a new contact"
+                }
+
+                Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
+                    .show()
             }
-
-            Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
-                .show()
-        }
-
-        contacts.observeForever(listPersonObserver)
+        })
     }
+
     override fun updateContact(contact: Person, updatedContact: Person) {
         val contacts = getAllContacts()
 
