@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.vasilevkin.greatcontacts.models.Person
 import com.vasilevkin.greatcontacts.utils.INTERNAL_DB_LOCAL_CONTACTS_JSON_FILE_NAME
+import com.vasilevkin.greatcontacts.utils.LOCAL_CONTACTS_JSON_FILE_NAME
 import java.io.*
 
 
@@ -18,7 +19,7 @@ class LocalDataSource : ILocalDataSource {
         val localContext = context
         var persons: List<Person> = emptyList()
 
-
+        checkIfLocalFileExistsAndCopyIfNeeded()
 
         if (localContext != null) {
             val jsonFileString = getJsonDataFromLocalFile(
@@ -87,6 +88,7 @@ class LocalDataSource : ILocalDataSource {
         }
         return jsonString
     }
+
     private fun saveJsonDataToLocalFile(
         context: Context,
         jsonString: String,
@@ -107,4 +109,55 @@ class LocalDataSource : ILocalDataSource {
         return true
     }
 
+    private fun checkIfLocalFileExistsAndCopyIfNeeded() {
+        val localContext = context
+
+        if (localContext != null) {
+            val localFilePath =
+                context?.filesDir.toString() + "/" + INTERNAL_DB_LOCAL_CONTACTS_JSON_FILE_NAME
+            val file = File(localFilePath)
+
+            if (!(file.exists())) {
+                copyFileFromAssetToInternalStorage(
+                    localContext,
+                    LOCAL_CONTACTS_JSON_FILE_NAME,
+                    INTERNAL_DB_LOCAL_CONTACTS_JSON_FILE_NAME
+                )
+            }
+        }
+    }
+
+    private fun copyFileFromAssetToInternalStorage(context: Context?, asset: String, file: String) {
+        val localContext = context
+        var inputStream: InputStream? = null
+        var outputStream: OutputStream? = null
+
+        try {
+            if (localContext != null) {
+                inputStream = localContext.assets.open(asset)
+                outputStream = localContext.openFileOutput(file, Context.MODE_PRIVATE)
+
+                copyFile(inputStream, outputStream)
+                inputStream.close()
+
+                inputStream = null
+
+                outputStream.flush()
+                outputStream.close()
+
+                outputStream = null
+            }
+        } catch (ioException: IOException) {
+            ioException.printStackTrace()
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun copyFile(inputStream: InputStream, outputStream: OutputStream) {
+        val buffer = ByteArray(1024)
+        var read: Int
+        while (inputStream.read(buffer).also { read = it } != -1) {
+            outputStream.write(buffer, 0, read)
+        }
+    }
 }
