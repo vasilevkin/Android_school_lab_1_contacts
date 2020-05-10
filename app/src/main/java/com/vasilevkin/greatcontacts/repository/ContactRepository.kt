@@ -58,9 +58,9 @@ class ContactRepository @Inject constructor(
 
             val status = saveAllContacts(newList)
             val textMessage = if (status) {
-                "All contacts are saved successfully"
+                "New contact is saved successfully"
             } else {
-                "Unknown error when save contacts"
+                "Unknown error when save a new contact"
             }
 
             Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
