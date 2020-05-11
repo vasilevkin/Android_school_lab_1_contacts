@@ -27,4 +27,20 @@ class UseCase2KotlinThreadBackground(private val localDataSource: ILocalDataSour
 
         return mutableLiveData
     }
+
+    override fun addNewContactInList(contact: Person, list: List<Person>) {
+        thread {
+            val updatedList = localDataSource.addNewPersonInList(contact, list)
+
+            mutableLiveData.postValue(updatedList)
+        }
+    }
+
+    override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        thread {
+            val updatedList = localDataSource.updatePersonInList(contact, updatedContact, list)
+
+            mutableLiveData.postValue(updatedList)
+        }
+    }
 }
