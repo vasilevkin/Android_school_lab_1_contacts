@@ -40,4 +40,46 @@ class UseCase3Handler(private val localDataSource: ILocalDataSource) : IUseCase 
 
         return mutableLiveData
     }
+
+    override fun addNewContactInList(contact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val handlerThread = HandlerThread("addNewContactBackgroundThread")
+
+        handlerThread.start()
+
+        val looper = handlerThread.looper
+        val handler = Handler(looper)
+
+        handler.post {
+            val updatedList = localDataSource.addNewPersonInList(contact, list)
+
+            val mainHandler = Handler(Looper.getMainLooper())
+
+            mainHandler.post {
+                mutableLiveData.postValue(updatedList)
+            }
+        }
+    }
+
+    override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val handlerThread = HandlerThread("updateContactBackgroundThread")
+
+        handlerThread.start()
+
+        val looper = handlerThread.looper
+        val handler = Handler(looper)
+
+        handler.post {
+            val updatedList = localDataSource.updatePersonInList(contact, updatedContact, list)
+
+            val mainHandler = Handler(Looper.getMainLooper())
+
+            mainHandler.post {
+                mutableLiveData.postValue(updatedList)
+            }
+        }
+    }
 }
