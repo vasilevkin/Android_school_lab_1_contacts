@@ -12,8 +12,8 @@ interface ILocalDataSource {
 
     fun saveContacts(contacts: List<Person>): Boolean
 
-    fun addNewPersonInList(person: Person, list: List<Person>)
+    fun addNewPersonInList(person: Person, list: List<Person>): List<Person>
 
-    fun updatePersonInList(person: Person, updatedPerson: Person, list: List<Person>)
+    fun updatePersonInList(person: Person, updatedPerson: Person, list: List<Person>): List<Person>
 
 }

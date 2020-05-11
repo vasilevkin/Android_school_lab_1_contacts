@@ -57,7 +57,7 @@ class LocalDataSource : ILocalDataSource {
         return isSavedSuccessfully
     }
 
-    override fun addNewPersonInList(person: Person, list: List<Person>) {
+    override fun addNewPersonInList(person: Person, list: List<Person>): List<Person> {
         val newList = list.toMutableList()
 
         newList.add(person)
@@ -75,9 +75,15 @@ class LocalDataSource : ILocalDataSource {
             Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
                 .show()
         }
+
+        return newList
     }
 
-    override fun updatePersonInList(person: Person, updatedPerson: Person, list: List<Person>) {
+    override fun updatePersonInList(
+        person: Person,
+        updatedPerson: Person,
+        list: List<Person>
+    ): List<Person> {
         val index = list.indexOf(person)
         val updatedPersons = list.toMutableList().apply {
             this[index] = updatedPerson
@@ -95,6 +101,8 @@ class LocalDataSource : ILocalDataSource {
             Toast.makeText(context, textMessage, Toast.LENGTH_LONG)
                 .show()
         }
+
+        return updatedPersons
     }
 
     // Private methods
