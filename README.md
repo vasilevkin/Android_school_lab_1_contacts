@@ -1,6 +1,7 @@
 # Android_school_lab_1_contacts
 
-![Great Contacts demo GIF](https://github.com/vasilevkin/Android_school_lab_1_contacts/blob/master/app_demo.gif)
+<img src="https://github.com/vasilevkin/Android_school_lab_1_contacts/blob/master/app_demo.gif" width="200" alt="Great Contacts demo GIF">
+
 
 Loading a huge number of contacts from file is implemented in the repository with these *use cases*:
 1. Main Thread (blocking)
@@ -21,7 +22,9 @@ The project doesn't include any tests.
 
 Technologies used in the project is for educational purposes only and the technology mix is a way overkill for such small project.
 
-##Technologies list:
+
+## Technologies list:
+
 * MVP
 * MVVM
 * Repository pattern with 2 repos used simultaneously
