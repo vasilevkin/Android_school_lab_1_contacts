@@ -26,6 +26,22 @@ class UseCase4AsyncTask(private val localDataSource: ILocalDataSource) : IUseCas
         return mutableLiveData
     }
 
+    override fun addNewContactInList(contact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val addNewContactBackgroundTask = AddNewContactBackgroundTask(contact, list)
+
+        addNewContactBackgroundTask.execute()
+    }
+
+    override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val updateContactBackgroundTask = UpdateContactBackgroundTask(contact, updatedContact, list)
+
+        updateContactBackgroundTask.execute()
+    }
+
     // Private
 
     private inner class BackgroundTask() : AsyncTask<Void, Void, List<Person>>() {
@@ -40,5 +56,35 @@ class UseCase4AsyncTask(private val localDataSource: ILocalDataSource) : IUseCas
             mutableLiveData.postValue(result)
         }
     }
-}
 
+    private inner class AddNewContactBackgroundTask(val contact: Person, val list: List<Person>) :
+        AsyncTask<Void, Void, List<Person>>() {
+
+        override fun doInBackground(vararg params: Void?): List<Person>? {
+            return localDataSource.addNewPersonInList(contact, list)
+        }
+
+        override fun onPostExecute(result: List<Person>?) {
+            super.onPostExecute(result)
+
+            mutableLiveData.postValue(result)
+        }
+    }
+
+    private inner class UpdateContactBackgroundTask(
+        val contact: Person,
+        val updatedContact: Person,
+        val list: List<Person>
+    ) : AsyncTask<Void, Void, List<Person>>() {
+
+        override fun doInBackground(vararg params: Void?): List<Person>? {
+            return localDataSource.updatePersonInList(contact, updatedContact, list)
+        }
+
+        override fun onPostExecute(result: List<Person>?) {
+            super.onPostExecute(result)
+
+            mutableLiveData.postValue(result)
+        }
+    }
+}
