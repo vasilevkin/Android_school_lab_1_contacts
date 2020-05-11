@@ -31,4 +31,28 @@ class UseCase9Coroutines(private val localDataSource: ILocalDataSource) : IUseCa
 
         return mutableLiveData
     }
+
+    override fun addNewContactInList(contact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val deferredResult: Deferred<List<Person>> = GlobalScope.async {
+            localDataSource.addNewPersonInList(contact, list)
+        }
+
+        GlobalScope.async {
+            mutableLiveData.postValue(deferredResult.await())
+        }
+    }
+
+    override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val deferredResult: Deferred<List<Person>> = GlobalScope.async {
+            localDataSource.updatePersonInList(contact, updatedContact, list)
+        }
+
+        GlobalScope.async {
+            mutableLiveData.postValue(deferredResult.await())
+        }
+    }
 }
