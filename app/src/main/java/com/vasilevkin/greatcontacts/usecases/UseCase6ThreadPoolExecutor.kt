@@ -25,10 +25,38 @@ class UseCase6ThreadPoolExecutor(private val localDataSource: ILocalDataSource) 
 
             mutableLiveData.postValue(list)
         }
-        
+
         executor.execute(worker)
         executor.shutdown()
 
         return mutableLiveData
+    }
+
+    override fun addNewContactInList(contact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val executor = Executors.newFixedThreadPool(5)
+        val worker = Runnable {
+            val updatedList = localDataSource.addNewPersonInList(contact, list)
+
+            mutableLiveData.postValue(updatedList)
+        }
+
+        executor.execute(worker)
+        executor.shutdown()
+    }
+
+    override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val executor = Executors.newFixedThreadPool(5)
+        val worker = Runnable {
+            val updatedList = localDataSource.updatePersonInList(contact, updatedContact, list)
+
+            mutableLiveData.postValue(updatedList)
+        }
+
+        executor.execute(worker)
+        executor.shutdown()
     }
 }
