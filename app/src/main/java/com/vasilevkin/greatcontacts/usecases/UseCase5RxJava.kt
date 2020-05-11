@@ -33,4 +33,32 @@ class UseCase5RxJava(private val localDataSource: ILocalDataSource) : IUseCase {
 
         return mutableLiveData
     }
+
+    override fun addNewContactInList(contact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val observable =
+            Observable.just(list)
+                .subscribeOn(Schedulers.computation())
+                .map {
+                    localDataSource.addNewPersonInList(contact, list)
+                }
+                .subscribe {
+                    mutableLiveData.postValue(it)
+                }
+    }
+
+    override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val observable =
+            Observable.just(list)
+                .subscribeOn(Schedulers.computation())
+                .map {
+                    localDataSource.updatePersonInList(contact, updatedContact, list)
+                }
+                .subscribe {
+                    mutableLiveData.postValue(it)
+                }
+    }
 }
