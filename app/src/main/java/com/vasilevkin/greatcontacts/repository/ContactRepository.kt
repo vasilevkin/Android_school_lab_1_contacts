@@ -1,7 +1,6 @@
 package com.vasilevkin.greatcontacts.repository
 
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -36,8 +35,7 @@ class ContactRepository @Inject constructor(
 
         useCaseStorage.context = context
 
-        val useCase = UseCases.UseCase1MainThreadBlocking
-//        val useCase = useCaseStorage.getSelectedUseCase()
+        val useCase = useCaseStorage.getSelectedUseCase()
 
         return when (useCase) {
             UseCases.UseCase1MainThreadBlocking -> useCase1MainThreadBlocking.getPersons()
@@ -57,8 +55,19 @@ class ContactRepository @Inject constructor(
 
         contacts.observeOnce(context as MainActivity, Observer<List<Person>> { list ->
             if (list != null) {
+                val useCase = useCaseStorage.getSelectedUseCase()
 
-                useCase1MainThreadBlocking.addNewContactInList(contact, list)
+                when (useCase) {
+                    UseCases.UseCase1MainThreadBlocking -> useCase1MainThreadBlocking.addNewContactInList(contact, list)
+                    UseCases.UseCase2KotlinThreadBackground -> useCase2KotlinThreadBackground.addNewContactInList(contact, list)
+                    UseCases.UseCase3Handler -> useCase3Handler.addNewContactInList(contact, list)
+                    UseCases.UseCase4AsyncTask -> useCase4AsyncTask.addNewContactInList(contact, list)
+                    UseCases.UseCase5RxJava -> useCase5RxJava.addNewContactInList(contact, list)
+                    UseCases.UseCase6ThreadPoolExecutor -> useCase6ThreadPoolExecutor.addNewContactInList(contact, list)
+                    UseCases.UseCase7Executor -> useCase7Executor.addNewContactInList(contact, list)
+                    UseCases.UseCase8Loader -> useCase8Loader.addNewContactInList(contact, list)
+                    UseCases.UseCase9Coroutines -> useCase9Coroutines.addNewContactInList(contact, list)
+                }
             }
         })
     }
@@ -68,9 +77,19 @@ class ContactRepository @Inject constructor(
 
         contacts.observeOnce(context as MainActivity, Observer<List<Person>> {
             if (it != null) {
+                val useCase = useCaseStorage.getSelectedUseCase()
 
-                useCase1MainThreadBlocking.updateContactInList(contact, updatedContact, it)
-
+                when (useCase) {
+                    UseCases.UseCase1MainThreadBlocking -> useCase1MainThreadBlocking.updateContactInList(contact, updatedContact, it)
+                    UseCases.UseCase2KotlinThreadBackground -> useCase2KotlinThreadBackground.updateContactInList(contact, updatedContact, it)
+                    UseCases.UseCase3Handler -> useCase3Handler.updateContactInList(contact, updatedContact, it)
+                    UseCases.UseCase4AsyncTask -> useCase4AsyncTask.updateContactInList(contact, updatedContact, it)
+                    UseCases.UseCase5RxJava -> useCase5RxJava.updateContactInList(contact, updatedContact, it)
+                    UseCases.UseCase6ThreadPoolExecutor -> useCase6ThreadPoolExecutor.updateContactInList(contact, updatedContact, it)
+                    UseCases.UseCase7Executor -> useCase7Executor.updateContactInList(contact, updatedContact, it)
+                    UseCases.UseCase8Loader -> useCase8Loader.updateContactInList(contact, updatedContact, it)
+                    UseCases.UseCase9Coroutines -> useCase9Coroutines.updateContactInList(contact, updatedContact, it)
+                }
             }
         })
     }
@@ -96,7 +115,6 @@ class ContactRepository @Inject constructor(
     private fun saveAllContacts(list: List<Person>): Boolean {
         return useCase1MainThreadBlocking.savePersons(list)
     }
-
 
     private fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
         observe(lifecycleOwner, object : Observer<T> {
