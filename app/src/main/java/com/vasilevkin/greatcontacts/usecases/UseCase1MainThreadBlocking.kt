@@ -26,12 +26,16 @@ class UseCase1MainThreadBlocking(private val localDataSource: ILocalDataSource) 
     }
 
     override fun addNewContactInList(contact: Person, list: List<Person>) {
+        localDataSource.context = context
+
         val updatedList = localDataSource.addNewPersonInList(contact, list)
 
         mutableLiveData.postValue(updatedList)
     }
 
     override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        localDataSource.context = context
+
         val updatedList = localDataSource.updatePersonInList(contact, updatedContact, list)
 
         mutableLiveData.postValue(updatedList)

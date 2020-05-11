@@ -29,6 +29,8 @@ class UseCase2KotlinThreadBackground(private val localDataSource: ILocalDataSour
     }
 
     override fun addNewContactInList(contact: Person, list: List<Person>) {
+        localDataSource.context = context
+
         thread {
             val updatedList = localDataSource.addNewPersonInList(contact, list)
 
@@ -37,6 +39,8 @@ class UseCase2KotlinThreadBackground(private val localDataSource: ILocalDataSour
     }
 
     override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        localDataSource.context = context
+
         thread {
             val updatedList = localDataSource.updatePersonInList(contact, updatedContact, list)
 
