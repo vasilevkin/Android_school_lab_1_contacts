@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add_new_contact_menu_button"
+        android:title="@string/menu_item_add"
+        app:showAsAction="ifRoom" />
+
+    <group
+        android:id="@+id/radio_group_usecases"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/radio_button_useCase1MainThreadBlocking"
+            android:orderInCategory="100"
+            android:title="@string/menu_item_usecase1mainthreadblocking"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/radio_button_useCase2KotlinThreadBackground"
+            android:orderInCategory="200"
+            android:title="@string/menu_item_usecase2kotlinthreadbackground"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/radio_button_useCase3Handler"
+            android:orderInCategory="300"
+            android:title="@string/menu_item_usecase3handler"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/radio_button_useCase4AsyncTask"
+            android:orderInCategory="300"
+            android:title="@string/menu_item_usecase4asynctask"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/radio_button_useCase5RxJava"
+            android:orderInCategory="300"
+            android:title="@string/menu_item_usecase5rxjava"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/radio_button_useCase6ThreadPoolExecutor"
+            android:orderInCategory="300"
+            android:title="@string/menu_item_usecase6threadpoolexecutor"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/radio_button_useCase7Executor"
+            android:orderInCategory="300"
+            android:title="@string/menu_item_usecase7executor"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/radio_button_useCase8Loader"
+            android:orderInCategory="300"
+            android:title="@string/menu_item_usecase8loader"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/radio_button_useCase9Coroutines"
+            android:orderInCategory="300"
+            android:title="@string/menu_item_usecase9coroutines"
+            app:showAsAction="never" />
+    </group>
+
+    <item
+        android:id="@+id/show_licenses_menu_button"
+        android:title="@string/menu_item_show_oss_licenses"
+        app:showAsAction="never" />
+</menu>
