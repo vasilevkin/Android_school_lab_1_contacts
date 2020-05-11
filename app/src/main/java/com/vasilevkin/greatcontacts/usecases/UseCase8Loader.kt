@@ -34,6 +34,14 @@ class UseCase8Loader(private val localDataSource: ILocalDataSource) : IUseCase,
         return mutableLiveData
     }
 
+    override fun addNewContactInList(contact: Person, list: List<Person>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     // interface LoaderManager.LoaderCallbacks<List<Person>>
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<Person>> {
