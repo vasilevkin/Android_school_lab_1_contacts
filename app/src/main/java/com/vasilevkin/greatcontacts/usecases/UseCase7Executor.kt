@@ -31,6 +31,32 @@ class UseCase7Executor(private val localDataSource: ILocalDataSource) : IUseCase
 
         return mutableLiveData
     }
+
+    override fun addNewContactInList(contact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val executor = BackgroundThreadExecutor()
+        val runnable = Runnable {
+            val updatedList = localDataSource.addNewPersonInList(contact, list)
+
+            mutableLiveData.postValue(updatedList)
+        }
+
+        executor.execute(runnable)
+    }
+
+    override fun updateContactInList(contact: Person, updatedContact: Person, list: List<Person>) {
+        localDataSource.context = context
+
+        val executor = BackgroundThreadExecutor()
+        val runnable = Runnable {
+            val updatedList = localDataSource.updatePersonInList(contact, updatedContact, list)
+
+            mutableLiveData.postValue(updatedList)
+        }
+
+        executor.execute(runnable)
+    }
 }
 
 
